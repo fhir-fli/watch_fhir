@@ -1,0 +1,17 @@
+name: watch_fhir
+description: A server app using the shelf package and Docker.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.1.0-285.0.dev
+
+dependencies:
+  args: ^2.4.2
+  shelf: ^1.4.1
+  shelf_router: ^1.1.4
+
+dev_dependencies:
+  http: ^1.1.0
+  lints: ^2.1.1
+  test: ^1.24.6
