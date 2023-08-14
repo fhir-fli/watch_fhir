@@ -1,21 +1,21 @@
 import 'dart:io';
 
 import 'package:shelf/shelf_io.dart' as shelf_io;
-import 'package:watch_fhir/controller.dart';
+import 'package:watch_fhir/restful_controller.dart';
 
-void main(List<String> args) async {
+Future<void> main() async {
   /// If the "PORT" environment variable is set, lisconfig['clientApis'][element]ten to it. Otherwise, 8080.
   /// https://cloud.google.com/run/docs/reference/container-contract#port
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
 
   /// Instantiate Controller to Listen
-  final listeningController = ListeningController();
+  final RestfulController restfulController = RestfulController();
 
   /// Create server
   /// See https://pub.dev/documentation/shelf/latest/shelf_io/serve.html
   final server = await shelf_io.serve(
     /// See https://pub.dev/documentation/shelf/latest/shelf/logRequests.html
-    listeningController.handler,
+    restfulController.handler,
     InternetAddress.anyIPv4, // Allows external connections
     port,
   );
@@ -24,4 +24,6 @@ void main(List<String> args) async {
 
   /// Server on message
   print('☀️ Serving at http://${server.address.host}:${server.port} ☀️');
+
+  
 }
