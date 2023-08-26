@@ -3,6 +3,17 @@ import 'package:http/http.dart' as http;
 
 import 'services.dart';
 
+/// Service Account Credentials
+final accountCredentials = ServiceAccountCredentials.fromJson(
+  watchFhirAssets.serviceAccountCredentials,
+  impersonatedUser: null,
+);
+
+final emailAccountCredentials = ServiceAccountCredentials.fromJson(
+  watchFhirAssets.serviceAccountCredentials,
+  impersonatedUser: 'service.account@mayjuun.com',
+);
+
 /// Get credentials for service account, must pass account credentials,
 /// proper scopes (which is really just google cloud) and then the http client
 Future<AccessCredentials> getCredentials([bool forEmail = false]) async {

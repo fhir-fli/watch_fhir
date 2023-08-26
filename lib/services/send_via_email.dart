@@ -3,14 +3,15 @@ import 'dart:convert';
 import 'package:googleapis/gmail/v1.dart' as gmail;
 import "package:googleapis_auth/auth_io.dart";
 import 'package:shelf/shelf.dart';
-
+import 'package:watch_fhir/services/services.dart';
 
 /// Function for sending a message via email
 Future<Response> sendViaEmail(String email, String text) async {
-  /// If it's communicationsOnly, we're assuming we allow any email to be
-  /// entered. Otherwise, for now, we're only allowing MayJuun emails
-  if (clientAssets.communicationsOnly || email.contains('@mayjuun.com')) {
-    String _getBase64Email(String source) =>
+  /// The assets.yaml file allows specification about whether emails for
+  /// communication should be allowed. Since emails are basically free, the
+  /// default for this is true.
+  if (watchFhirAssets.allowEmails) {
+    String getBase64Email(String source) =>
         base64UrlEncode(utf8.encode(source));
 
     final clientCredentials = emailAccountCredentials;
@@ -28,20 +29,26 @@ Future<Response> sendViaEmail(String email, String text) async {
     String contentTransferEncoding = 'base64';
     String emailContent = text;
 
-    await gmailApi.users.messages.send(
-        gmail.Message.fromJson({
-          'raw': _getBase64Email('From: $from\r\n'
-              'To: $to\r\n'
-              'Subject: $subject\r\n'
-              'Content-Type: $contentType; charset=$charset\r\n'
-              'Content-Transfer-Encoding: $contentTransferEncoding\r\n\r\n'
-              '$emailContent'),
-        }),
-        from);
+    try {
+      await gmailApi.users.messages.send(
+          gmail.Message.fromJson({
+            'raw': getBase64Email('From: $from\r\n'
+                'To: $to\r\n'
+                'Subject: $subject\r\n'
+                'Content-Type: $contentType; charset=$charset\r\n'
+                'Content-Transfer-Encoding: $contentTransferEncoding\r\n\r\n'
+                '$emailContent'),
+          }),
+          from);
 
-    return Response.ok('Message has been sent: ${DateTime.now()}');
-  } else {
-    /// If it's not a MayJuun email, we return a response to that effect
-    return Response.ok('$email is not within the MayJuun Domain');
+      return Response.ok('Email has been sent: ${DateTime.now()}');
+    } catch (e, s) {
+      /// At some point this should be something other than ok response, the
+      /// problem is that for many services, if they don't receive an ok
+      /// response, they will continuously retry the request
+      return Response.ok('There was an error, $e.'
+          'The stack at the time of the error was: $s');
+    }
   }
+  return Response.ok('There has been some kind of mistake sending email.');
 }
