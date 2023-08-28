@@ -27,6 +27,18 @@ class RestfulController {
       return Response.ok('${request.method} made to the extended endpoint');
     });
 
+    /// This is the endpoint for evaluating a fhirpath expression
+    router.all('/fhir/<dstu2|stu3|r4|r5>/\$fhirpath', (Request request) async {
+      return Response.ok(
+          '${request.method} made to the extended endpoint but ended with "/"');
+    });
+
+    /// Same as above, but in case there's a "/" at the end of the URL
+    router.all('/fhir/<dstu2|stu3|r4|r5>/\$fhirpath/', (Request request) async {
+      return Response.ok(
+          '${request.method} made to the extended endpoint but ended with "/"');
+    });
+
     /// Same as above, but in case there's a "/" at the end of the URL
     router.all('/fhir/<dstu2|stu3|r4|r5>/<ignored|.*>/',
         (Request request, String fhirVersion, String resourceType) async {
