@@ -1,16 +1,16 @@
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:http/http.dart' as http;
 
-import 'services.dart';
+import '../watch_fhir.dart';
 
 /// Service Account Credentials
 final accountCredentials = ServiceAccountCredentials.fromJson(
-  watchFhirAssets.serviceAccountCredentials,
+  providerContainer.read(assetsProvider).serviceAccountCredentials,
   impersonatedUser: null,
 );
 
 final emailAccountCredentials = ServiceAccountCredentials.fromJson(
-  watchFhirAssets.serviceAccountCredentials,
+  providerContainer.read(assetsProvider).serviceAccountCredentials,
   impersonatedUser: 'service.account@mayjuun.com',
 );
 

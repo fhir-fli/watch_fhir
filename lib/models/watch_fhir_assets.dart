@@ -1,9 +1,30 @@
 // ignore_for_file: invalid_annotation_target, sort_unnamed_constructors_first, sort_constructors_first, prefer_mixin
 
-// Dart imports:
-
 // Package imports:
+import 'dart:convert';
+
 import 'package:googleapis_auth/auth_io.dart';
+import 'package:riverpod/riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:yaml/yaml.dart';
+
+import '../watch_fhir.dart';
+
+part 'watch_fhir_assets.g.dart';
+
+final ProviderContainer providerContainer = ProviderContainer();
+
+@riverpod
+class Assets extends _$Assets {
+  @override
+  WatchFhirAssets build() => WatchFhirAssets();
+
+  Future<void> init() async {
+    final YamlMap yaml = loadYaml(assetsYaml);
+    final Map<String, dynamic> json = jsonDecode(jsonEncode(yaml));
+    state = WatchFhirAssets.fromJson(json);
+  }
+}
 
 class WatchFhirAssets {
   WatchFhirAssets({

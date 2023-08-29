@@ -3,14 +3,15 @@ import 'dart:convert';
 import 'package:googleapis/gmail/v1.dart' as gmail;
 import "package:googleapis_auth/auth_io.dart";
 import 'package:shelf/shelf.dart';
-import 'package:watch_fhir/services/services.dart';
+
+import '../watch_fhir.dart';
 
 /// Function for sending a message via email
 Future<Response> sendViaEmail(String email, String text) async {
   /// The assets.yaml file allows specification about whether emails for
   /// communication should be allowed. Since emails are basically free, the
   /// default for this is true.
-  if (watchFhirAssets.allowEmails) {
+  if (providerContainer.read(assetsProvider).allowEmails) {
     String getBase64Email(String source) =>
         base64UrlEncode(utf8.encode(source));
 

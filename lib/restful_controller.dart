@@ -27,23 +27,21 @@ class RestfulController {
       return Response.ok('${request.method} made to the extended endpoint');
     });
 
-    /// This is the endpoint for evaluating a fhirpath expression
-    router.all('/fhir/<dstu2|stu3|r4|r5>/\$fhirpath', (Request request) async {
-      return Response.ok(
-          '${request.method} made to the extended endpoint but ended with "/"');
-    });
-
-    /// Same as above, but in case there's a "/" at the end of the URL
-    router.all('/fhir/<dstu2|stu3|r4|r5>/\$fhirpath/', (Request request) async {
-      return Response.ok(
-          '${request.method} made to the extended endpoint but ended with "/"');
-    });
-
     /// Same as above, but in case there's a "/" at the end of the URL
     router.all('/fhir/<dstu2|stu3|r4|r5>/<ignored|.*>/',
         (Request request, String fhirVersion, String resourceType) async {
       return Response.ok(
           '${request.method} made to the extended endpoint but ended with "/"');
+    });
+
+    /// This is the endpoint for evaluating a fhirpath expression
+    router.all('/fhir/<dstu2|stu3|r4|r5>/\$fhirpath', (Request request) async {
+      return Response.ok('${request.method} made to the fhirpath endpoint');
+    });
+
+    /// Same as above, but in case there's a "/" at the end of the URL
+    router.all('/fhir/<dstu2|stu3|r4|r5>/\$fhirpath/', (Request request) async {
+      return Response.ok('${request.method} made to the fhirpath endpoint');
     });
 
     /// This is specifically for allowing Pub/Sub from GCP
@@ -58,6 +56,9 @@ class RestfulController {
     ///You can catch all verbs and use a URL-parameter with a regular expression
     ///that matches everything to catch app.
     router.all('/<ignored|.*>', (Request request) {
+      // TODO(Dokotela): because GCP keeps resending until it gets a 200, we return
+      // a 200 during development. This should be changed to a 404 when we're ready
+      // to deploy in prod.
       // return Response.notFound('Page not found');
       return Response.ok('Page not found');
     });
