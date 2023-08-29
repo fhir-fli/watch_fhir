@@ -28,20 +28,28 @@ class Assets extends _$Assets {
 
 class WatchFhirAssets {
   WatchFhirAssets({
+    this.communicationsOnly = false,
     this.allowEmails = true,
     this.allowTexts = false,
     this.serviceAccountEmail,
     this.emailSubject,
+    this.organizationId,
+    this.cuestionarioUrl,
+    this.fhirUrl = '',
     this.twilioAssets,
     this.serviceAccountCredentials,
   });
 
   WatchFhirAssets.fromJson(
     Map<String, dynamic> json,
-  )   : allowEmails = json['allowEmails'],
+  )   : communicationsOnly = json['communicationsOnly'],
+        allowEmails = json['allowEmails'],
         allowTexts = json['allowTexts'],
         serviceAccountEmail = json['serviceAccountEmail'],
         emailSubject = json['emailSubject'],
+        organizationId = json['organizationId'],
+        cuestionarioUrl = json['cuestionarioUrl'],
+        fhirUrl = json['fhirUrl'],
         twilioAssets = TwilioAssets.fromJson(
           json['twilioAssets'],
         ),
@@ -49,10 +57,14 @@ class WatchFhirAssets {
           json['serviceAccountCredentials'],
         );
 
+  bool communicationsOnly;
   bool allowEmails;
   bool allowTexts;
   String? serviceAccountEmail;
   String? emailSubject;
+  String? organizationId;
+  String? cuestionarioUrl;
+  String fhirUrl;
   TwilioAssets? twilioAssets;
   ServiceAccountCredentials? serviceAccountCredentials;
 }

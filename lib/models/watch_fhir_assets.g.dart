@@ -6,7 +6,7 @@ part of 'watch_fhir_assets.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$assetsHash() => r'1319fcf21e1534fce1f508cd4df4ee7a3237317f';
+String _$assetsHash() => r'2a68cb77af71334cb3e0a75d37bca1a561e1609b';
 
 /// See also [Assets].
 @ProviderFor(Assets)

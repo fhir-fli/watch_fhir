@@ -7,6 +7,10 @@ import 'package:fhir/r4.dart' as stu3;
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
+import 'watch_fhir.dart';
+
+/// This is the controller for the RESTful API. It defines the routes and
+/// handlers for the API. It is called from the server.dart file.
 class RestfulController {
   ///Define our getter for our handler
   Handler get handler {
@@ -49,7 +53,9 @@ class RestfulController {
         (Request request, String fhirVersion) async {
       final requestString = await request.readAsString();
       final path = pathFromPayload(requestString, fhirVersion);
-      if (path.isNotEmpty && path.length == 2) {}
+      if (path.isNotEmpty && path.length == 2) {
+        return postGcpRequest(path);
+      }
       return Response.ok('${request.method} made to the GCP endpoint');
     });
 
@@ -76,6 +82,7 @@ class RestfulController {
 List<String> pathFromPayload(String requestString, String fhirVersion) {
   if (requestString.isNotEmpty) {
     final payloadData = jsonDecode(requestString)?['message']?['data'];
+
     if (payloadData != null) {
       final data = utf8.fuse(base64).decode(payloadData);
       final dataList = data.split('/');
