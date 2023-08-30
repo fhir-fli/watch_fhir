@@ -54,7 +54,7 @@ class RestfulController {
       final requestString = await request.readAsString();
       final path = pathFromPayload(requestString, fhirVersion);
       if (path.isNotEmpty && path.length == 2) {
-        return postGcpRequest(path);
+        return postGcpRequest(path, fhirVersion);
       }
       return Response.ok('${request.method} made to the GCP endpoint');
     });

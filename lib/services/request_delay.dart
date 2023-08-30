@@ -1,9 +1,10 @@
 const numberOfTries = 8;
+
 Future<void> timeoutDelay(int i) async {
-  await Future.delayed(Duration(milliseconds: _timeout[i]));
+  await Future.delayed(Duration(milliseconds: timeout[i]));
 }
 
-const _timeout = [
+const timeout = [
   200,
   400,
   800,

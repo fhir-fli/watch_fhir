@@ -26,4 +26,6 @@ Future<void> main() async {
 
   /// Server on message
   print('☀️ Serving at http://${server.address.host}:${server.port} ☀️');
+
+  atSignController();
 }

@@ -53,9 +53,11 @@ class WatchFhirAssets {
         twilioAssets = TwilioAssets.fromJson(
           json['twilioAssets'],
         ),
-        serviceAccountCredentials = ServiceAccountCredentials.fromJson(
-          json['serviceAccountCredentials'],
-        );
+        serviceAccountCredentials = json['serviceAccountCredentials'] is! Map
+            ? null
+            : ServiceAccountCredentials.fromJson(
+                json['serviceAccountCredentials'],
+              );
 
   bool communicationsOnly;
   bool allowEmails;

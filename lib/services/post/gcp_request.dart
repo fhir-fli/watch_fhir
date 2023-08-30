@@ -5,11 +5,11 @@ import 'package:shelf/shelf.dart';
 import '../../watch_fhir.dart';
 
 /// How the server responds to a post request
-Future<Response> postGcpRequest(List<String> path) async {
+Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
   /// For logging in Cloud Run
   print('postRequest -- path: $path');
 
-  final R4ResourceType? resourceType = Resource.resourceTypeFromString(path[0]);
+  final dynamic resourceType = Resource.resourceTypeFromString(path[0]);
 
   if (resourceType == null) {
     return Response.ok('"${path[0]}" is not a supported resourceType.');

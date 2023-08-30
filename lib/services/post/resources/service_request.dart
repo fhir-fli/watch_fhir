@@ -99,7 +99,7 @@ Future<Response> postServiceRequest(ServiceRequest serviceRequest) async {
 
       return printResponseFirst(createResponse.toJson().toString());
     } else {
-      return printResponseFirst(operationOutcome(
+      return printResponseFirst(r4OperationOutcome(
               'PlanDefinition was not returned from request\n'
               'ServiceRequest ID: ${serviceRequest.fhirId}\n'
               'PlanDefinition ID: ${serviceRequest.instantiatesUri![0].toString().split('/').last}')
@@ -107,7 +107,7 @@ Future<Response> postServiceRequest(ServiceRequest serviceRequest) async {
           .toString());
     }
   } else {
-    return printResponseFirst(operationOutcome(
+    return printResponseFirst(r4OperationOutcome(
             'No PlanDefinition present in ServiceRequest ${serviceRequest.fhirId}')
         .toJson()
         .toString());
