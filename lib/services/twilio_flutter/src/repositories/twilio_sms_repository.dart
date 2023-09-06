@@ -30,7 +30,7 @@ class TwilioSMSRepositoryImpl extends TwilioSmsRepository {
   @override
   Future<SentSmsData> getSmsList(
       {required String pageSize, required TwilioCreds? twilioCreds}) async {
-    String url = twilioCreds!.url + '?PageSize=$pageSize';
+    String url = '${twilioCreds!.url}?PageSize=$pageSize';
     String cred = twilioCreds.cred;
     var bytes = utf8.encode(cred);
     var base64Str = base64.encode(bytes);
@@ -77,9 +77,9 @@ class TwilioSMSRepositoryImpl extends TwilioSmsRepository {
     } else {
       print('Sending Failed');
       ErrorData errorData = ErrorData.fromJson(jsonDecode(response.body));
-      print('Error Code : ' + errorData.code.toString());
-      print('Error Message : ' + errorData.message!);
-      print("More info : " + errorData.moreInfo!);
+      print('Error Code : ${errorData.code}');
+      print('Error Message : ${errorData.message!}');
+      print("More info : ${errorData.moreInfo!}");
       throw Exception();
     }
   }
@@ -89,7 +89,7 @@ class TwilioSMSRepositoryImpl extends TwilioSmsRepository {
       {required String messageSID, required TwilioCreds? twilioCreds}) async {
     String uri =
         '${Utils.baseUri}/${Utils.version}/Accounts/${twilioCreds!.accountSid}/Messages/$messageSID';
-    uri = uri + '.json';
+    uri = '$uri.json';
     String cred = twilioCreds.cred;
     var bytes = utf8.encode(cred);
     var base64Str = base64.encode(bytes);

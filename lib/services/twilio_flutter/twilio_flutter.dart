@@ -67,7 +67,7 @@ class TwilioFlutter {
   /// changeTwilioNumber
   /// [twilioNumber] : A non-null value for new twilio number
   void changeTwilioNumber(String twilioNumber) {
-    this._twilioCreds!.twilioNumber = twilioNumber;
+    _twilioCreds!.twilioNumber = twilioNumber;
   }
 
   ///	sendWhatsApp
@@ -104,7 +104,7 @@ class TwilioFlutter {
         messageSID: messageSid, twilioCreds: _twilioCreds);
   }
 
-  @deprecated
+  @Deprecated('Use getSmsList instead')
   Future getSMSList(String url) async {
     var data = await NetworkHelper.getRequest(url);
     List<SMS> smsList = [];

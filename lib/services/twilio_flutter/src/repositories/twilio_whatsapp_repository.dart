@@ -26,8 +26,8 @@ class TwilioWhatsAppRepositoryImpl extends TwilioWhatsAppRepository {
       'Accept': 'application/json'
     };
     var body = {
-      'From': 'whatsapp:' + twilioCreds.twilioNumber,
-      'To': 'whatsapp:' + toNumber,
+      'From': 'whatsapp: ${twilioCreds.twilioNumber}',
+      'To': 'whatsapp: $toNumber',
       'Body': messageBody
     };
     http.Response response = await http.post(Uri.parse(twilioCreds.url),
@@ -38,9 +38,9 @@ class TwilioWhatsAppRepositoryImpl extends TwilioWhatsAppRepository {
     } else {
       print('Sending Failed');
       ErrorData errorData = ErrorData.fromJson(jsonDecode(response.body));
-      print('Error Code : ' + errorData.code.toString());
-      print('Error Message : ' + errorData.message!);
-      print("More info : " + errorData.moreInfo!);
+      print('Error Code : ${errorData.code}');
+      print('Error Message : ${errorData.message!}');
+      print("More info : ${errorData.moreInfo!}");
       throw Exception();
     }
   }

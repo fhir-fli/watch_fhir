@@ -12,9 +12,9 @@ class NetworkHelper {
     } else {
       print('Sending Failed');
       var data = jsonDecode(response.body);
-      print('Error Code : ' + data['code'].toString());
-      print('Error Message : ' + data['message']);
-      print("More info : " + data['more_info']);
+      print('Error Code : ${data['code']}');
+      print('Error Message : ${data['message']}');
+      print("More info : ${data['more_info']}");
     }
     return response.statusCode;
   }
