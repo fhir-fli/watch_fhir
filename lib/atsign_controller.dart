@@ -31,7 +31,7 @@ dynamic listenFunction(AtClient atClient, AtNotification atNotification) async {
     );
 
     /// If it fails, log the log, how meta! ;-P
-    if (logged is! SuccessNotError) {
+    if (logged is! FhirliteSuccess) {
       log(logged.toString());
     }
 

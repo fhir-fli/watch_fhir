@@ -1,5 +1,6 @@
 import 'package:at_client/at_client.dart';
-import 'package:at_fhir/at_fhir.dart';
+
+import '../../watch_fhir.dart';
 
 Future<SuccessOrError> logNotification(
   AtClient atClient,
@@ -15,11 +16,13 @@ Future<SuccessOrError> logNotification(
       .replaceAll('-', '')
       .substring(0, 16);
 
-  return await atSignPut(
-    atClient: atClient,
-    atKey: 'fhir.request.$now',
-    value: notification ?? '',
-    sharedWith: atSign,
-    nameSpace: nameSpace,
-  );
+  return FhirliteSuccess.success();
+
+  // return await atSignPut(
+  //   atClient: atClient,
+  //   atKey: 'fhir.request.$now',
+  //   value: notification ?? '',
+  //   sharedWith: atSign,
+  //   nameSpace: nameSpace,
+  // );
 }
