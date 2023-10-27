@@ -4,12 +4,12 @@ version: 0.0.1
 # repository: https://github.com/my_org/my_repo
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   args: ^2.4.2
-  at_client: ^3.0.64
-  at_fhir: 
+  at_client: ^3.0.65
+  at_fhir:
     path: ../at_fhir
   at_onboarding_cli: ^1.3.0
   fhir: ^0.11.3
