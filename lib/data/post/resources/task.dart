@@ -7,7 +7,8 @@ import '../../../watch_fhir.dart';
 
 Future<Response> postTask(Task task) async {
   final AccessCredentials credentials = await getCredentials();
-  final WatchFhirAssets watchFhirAssets = providerContainer.read(assetsProvider);
+  final WatchFhirAssets watchFhirAssets =
+      providerContainer.read(assetsProvider);
   final Uri fhirUrl = Uri.parse(watchFhirAssets.fhirUrl);
 
   final pastCommunicationRequest = FhirRequest.search(
@@ -41,7 +42,8 @@ Future<Response> postTask(Task task) async {
 
   /// If there isn't one, return an error
   if (reference == null) {
-    return printResponseFirst('The Task with ID: ${task.fhirId} did not have an owner'
+    return printResponseFirst(
+        'The Task with ID: ${task.fhirId} did not have an owner'
         '${task.toJson()}');
   }
 

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:at_client/at_client.dart';
-import 'package:at_fhir/at_fhir.dart';
 import 'package:fhir/dstu2.dart' as dstu2;
 import 'package:fhir/r4.dart' as r4;
 import 'package:fhir/r5.dart' as r5;
@@ -38,67 +37,73 @@ dynamic listenFunction(AtClient atClient, AtNotification atNotification) async {
     /// Note where the notification came from
     final String fromAtSign = atNotification.from;
 
-    /// If the request is from a trusted source, parse the request
-    final AtFhirNotification atFhirNotification =
-        AtFhirNotification.fromJsonString(atNotification.key
-            .replaceFirst('${atClient.getCurrentAtSign()}:', ''));
-    print(atFhirNotification.toJsonString());
-    await atClient.notificationService.notify(NotificationParams.forText(
-      'You do not have permission to access this server.',
-      fromAtSign,
-      shouldEncrypt: true,
-    ));
+    if (atNotification.value == null) {
+      throw Exception('Notification value is null');
+    } else {
+      /// If the request is from a trusted source, parse the request
+      final AtFhirNotification atFhirNotification =
+          AtFhirNotification.fromJsonString(atNotification.value!);
+      await atClient.notificationService.notify(NotificationParams.forText(
+        'You do not have permission to access this server.',
+        fromAtSign,
+        shouldEncrypt: true,
+      ));
 
-    /// Handle the request
-    switch (atFhirNotification) {
-      case AtFhirDstu2RequestNotification():
-        {
-          final dstu2.Resource resource =
-              await forwardDstu2Request(atFhirNotification.value);
-          await atFhirNotify(
-            atClient,
-            AtFhirDstu2ResourceNotification(resource),
-            fromAtSign,
-          );
-        }
-        break;
-      case AtFhirStu3RequestNotification():
-        {
-          final stu3.Resource resource =
-              await forwardStu3Request(atFhirNotification.value);
-          await atFhirNotify(
-            atClient,
-            AtFhirStu3ResourceNotification(resource),
-            fromAtSign,
-          );
-        }
-        break;
-      case AtFhirR4RequestNotification():
-        {
-          final r4.Resource resource =
-              await forwardR4Request(atFhirNotification.value);
-          await atFhirNotify(
-            atClient,
-            AtFhirR4ResourceNotification(resource),
-            fromAtSign,
-          );
-        }
-        break;
-      case AtFhirR5RequestNotification():
-        {
-          final r5.Resource resource =
-              await forwardR5Request(atFhirNotification.value);
-          await atFhirNotify(
-            atClient,
-            AtFhirR5ResourceNotification(resource),
-            fromAtSign,
-          );
-        }
-        break;
-      default:
-        {
-          log('Unallowed notification: ${atFhirNotification.toJsonString()}');
-        }
+      print(atFhirNotification.runtimeType);
+
+      /// Handle the request
+      switch (atFhirNotification) {
+        case AtFhirDstu2RequestNotification():
+          {
+            final dstu2.Resource resource =
+                await forwardDstu2Request(atFhirNotification.value);
+            await atFhirNotify(
+              atClient,
+              AtFhirDstu2ResourceNotification(resource),
+              fromAtSign,
+            );
+          }
+          break;
+        case AtFhirStu3RequestNotification():
+          {
+            final stu3.Resource resource =
+                await forwardStu3Request(atFhirNotification.value);
+            await atFhirNotify(
+              atClient,
+              AtFhirStu3ResourceNotification(resource),
+              fromAtSign,
+            );
+          }
+          break;
+        case AtFhirR4RequestNotification():
+          {
+            final r4.Resource resource =
+                await forwardR4Request(atFhirNotification.value);
+
+            print(resource.toJson());
+            await atFhirNotify(
+              atClient,
+              AtFhirR4ResourceNotification(resource),
+              fromAtSign,
+            );
+          }
+          break;
+        case AtFhirR5RequestNotification():
+          {
+            final r5.Resource resource =
+                await forwardR5Request(atFhirNotification.value);
+            await atFhirNotify(
+              atClient,
+              AtFhirR5ResourceNotification(resource),
+              fromAtSign,
+            );
+          }
+          break;
+        default:
+          {
+            log('Unallowed notification: ${atFhirNotification.toJsonString()}');
+          }
+      }
     }
   } catch (e, st) {
     log('Unable to parse request', error: e, stackTrace: st);
