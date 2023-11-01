@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:at_client/at_client.dart';
+import 'package:at_fhir/at_fhir.dart';
 import 'package:fhir/dstu2.dart' as dstu2;
 import 'package:fhir/r4.dart' as r4;
 import 'package:fhir/r5.dart' as r5;
