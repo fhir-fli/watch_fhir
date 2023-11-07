@@ -58,7 +58,8 @@ Future<r5.Resource> forwardR5Request(r5_request.FhirRequest request) async {
   return resource;
 }
 
-Future<stu3.Resource> forwardStu3Request(stu3_request.FhirRequest request) async {
+Future<stu3.Resource> forwardStu3Request(
+    stu3_request.FhirRequest request) async {
   stu3.Resource resource = stu3OperationOutcome(
       "Unable to make request, sorry, that's all we know.");
   for (var i = 0; i < numberOfTries; i++) {
