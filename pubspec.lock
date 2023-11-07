@@ -37,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "7e0d52067d05f2e0324268097ba723b71cb41ac8a6a2b24d1edf9c536b987b03"
+      sha256: "7b875fd4a20b165a3084bd2d210439b22ebc653f21cea4842729c0c30c82596b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.6"
+    version: "3.4.9"
   args:
     dependency: transitive
     description:
@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  at_auth:
+    dependency: transitive
+    description:
+      name: at_auth
+      sha256: "762ff58fa533bc0d683bd106a2646980eb43080c6d1f415554f987e894a80926"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   at_base2e15:
     dependency: transitive
     description:
@@ -85,63 +93,34 @@ packages:
     dependency: "direct main"
     description:
       name: at_client
-<<<<<<< HEAD
-      sha256: d96bc7fe7f66419c41281627ff1f221e4fc4296847d4d7f90999c5aa6ecaddfd
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.65"
-=======
       sha256: "63baa17106a72b5c79cad216418ec178e87381587eef21fa33ef5afdef2172c4"
       url: "https://pub.dev"
     source: hosted
     version: "3.0.67"
->>>>>>> 1e61b658b387fa95141e509a31cde407942ffe58
   at_commons:
     dependency: transitive
     description:
       name: at_commons
-<<<<<<< HEAD
-      sha256: "02844803a417ef2c80f86a7385281ef65075ae935ae7770b299ba7d35ed90ed3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.56"
-=======
       sha256: a3b5c171c0a7a7cbfd334302df7670f831f00b9b701d8bec9ebbc1765e69f489
       url: "https://pub.dev"
     source: hosted
     version: "3.0.57"
->>>>>>> 1e61b658b387fa95141e509a31cde407942ffe58
-  at_fhir:
-    dependency: "direct main"
-    description:
-      name: at_fhir
-      sha256: "45e62affe12df371378b091da56672e9a85f5ffd0c87413e1109047c0f16d5d9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.11.0-dev3"
   at_lookup:
     dependency: transitive
     description:
       name: at_lookup
-<<<<<<< HEAD
-      sha256: "9a0db434b98a855b06dc90dcffa96667cd4ede21230449fdd9046c77ec4bb822"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.40"
-=======
       sha256: "75f1e8e0445295c6b649aa04a95275f51d79cd18aa83a9d0c207f10604cc17b1"
       url: "https://pub.dev"
     source: hosted
     version: "3.0.41"
->>>>>>> 1e61b658b387fa95141e509a31cde407942ffe58
   at_onboarding_cli:
     dependency: "direct main"
     description:
       name: at_onboarding_cli
-      sha256: "847cf4511276651346c5334daa9e209656f778010491fe33843a5e1d5861689e"
+      sha256: "7d2425dee2349e7e14cf395e7438c6a34581b640a5528d798cde86c0a56b50b3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
+    version: "1.4.0"
   at_persistence_secondary_server:
     dependency: transitive
     description:
@@ -994,10 +973,10 @@ packages:
     dependency: "direct overridden"
     description:
       name: uuid
-      sha256: b715b8d3858b6fa9f68f87d20d98830283628014750c2b09b6f516c1da4af2a7
+      sha256: "49ea0b5f9f741a601de59398b2e08dd5cdc3f41d19c215e53b92b6cab2a2337b"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   version:
     dependency: "direct main"
     description:
@@ -1050,10 +1029,10 @@ packages:
     dependency: transitive
     description:
       name: xml2json
-      sha256: "1cd5d23474f38e794fbcab262290bc638c59c985c34d29180fc4525eda24ea7d"
+      sha256: ffb6dc0132a59b2d10d1716aea34ff53fb0e5b73f46a347d302a1a993ea57675
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "6.2.1"
   yaml:
     dependency: "direct main"
     description:
@@ -1066,9 +1045,9 @@ packages:
     dependency: transitive
     description:
       name: zxing2
-      sha256: "1e141568c9646bc262fa75aacf739bc151ef6ad0226997c0016cc3da358a1bbc"
+      sha256: a042961441bd400f59595f9125ef5fca4c888daf0ea59c17f41e0e151f8a12b5
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
 sdks:
   dart: ">=3.1.0 <4.0.0"
