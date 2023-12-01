@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   at_client: ^3.0.67
+  at_fhir: ^0.11.0-dev3
   # at_fhir:
   #   path: ../at_fhir
   at_onboarding_cli: ^1.4.0

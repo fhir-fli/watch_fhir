@@ -64,7 +64,7 @@ MeasureReport _createMeasureReport(
   Patient patient,
   MeasureReport? report,
 ) {
-  print('_createMeasureReport');
+  // print('_createMeasureReport');
 
   /// Clear the current MeasureReport
   MeasureReport measureReport = report?.copyWith(
@@ -84,13 +84,13 @@ MeasureReport _createMeasureReport(
         subject: patient.thisReference,
       );
 
-  print('Length of MeasureGroup: ${measure.group?.length}');
-  int i = 1;
+  // print('Length of MeasureGroup: ${measure.group?.length}');
+  // int i = 1;
 
   /// For each Group in Measure
   for (var measureGroup in measure.group ?? <MeasureGroup>[]) {
-    print('Loop number times: $i');
-    i++;
+    // print('Loop number times: $i');
+    // i++;
     String? responsePath;
 
     final questionnairePath = measureGroup.code?.coding?.first.code.toString();
@@ -99,8 +99,8 @@ MeasureReport _createMeasureReport(
           element.questionnaire.toString().contains(questionnairePath));
       responsePath = responseIndex == -1 ? null : responses[responseIndex].path;
     }
-    print(
-        'Set questionnairePath: $questionnairePath\n  + responsePath: $responsePath');
+    // print(
+    //     'Set questionnairePath: $questionnairePath\n  + responsePath: $responsePath');
 
     /// Add one group to the MeasureReport
     final List<MeasureReportGroup> newGroups = [
@@ -124,18 +124,18 @@ MeasureReport _createMeasureReport(
               : [])
     ];
 
-    print('copying over measureReport with newGroups');
+    // print('copying over measureReport with newGroups');
     measureReport = measureReport.copyWith(group: newGroups);
-    print('new groups updated: $newGroups');
+    // print('new groups updated: $newGroups');
 
-    print(
-        'Length of MeasureGroupPopulation: ${measureGroup.population?.length}');
-    int j = 1;
+    // print(
+    //     'Length of MeasureGroupPopulation: ${measureGroup.population?.length}');
+    // int j = 1;
 
     /// Look through the populations in Measure.population
     for (var population in measureGroup.population ?? <MeasurePopulation>[]) {
-      print('number of times through measureGroupPopulations: $j');
-      j++;
+      // print('number of times through measureGroupPopulations: $j');
+      // j++;
 
       /// Currently only supports FHIRPath
       if (population.criteria.language ==
@@ -150,7 +150,7 @@ MeasureReport _createMeasureReport(
           List<String> pathResult = [];
           try {
             // TODO(Dokotela): come back and fix the environment
-            print('PathExpression: $pathExpression');
+            // print('PathExpression: $pathExpression');
             final result = walkFhirPath(
               context: bundle.toJson(),
               pathExpression: pathExpression,
@@ -158,7 +158,7 @@ MeasureReport _createMeasureReport(
               resource: bundle.toJson(),
             );
             if (result.isNotEmpty) {
-              result.forEach(print);
+              // result.forEach(print);
               pathResult.addAll(result.first.toString().split(';'));
             }
           } catch (e) {
@@ -191,7 +191,7 @@ MeasureReport _createMeasureReport(
           String? code;
           double? score;
 
-          print('parsing path result of: $pathResult');
+          // print('parsing path result of: $pathResult');
 
           if (pathResult.isNotEmpty && double.tryParse(pathResult[0]) != null) {
             score = double.tryParse(pathResult[0]);
@@ -215,13 +215,13 @@ MeasureReport _createMeasureReport(
           /// Stratum within the Stratifier of the MeasureReport.population
           /// (confusing, I agree)
           ///
-          print('Value: $value');
-          print('Code: $code');
-          print('Score: $score');
+          // print('Value: $value');
+          // print('Code: $code');
+          // print('Score: $score');
 
           MeasureReportGroup? newGroup = measureReport.group?.last;
           if (newGroup != null) {
-            print('newGroup is not null');
+            // print('newGroup is not null');
             newGroup = newGroup.copyWith(stratifier: [
               ...newGroup.stratifier ?? [],
               MeasureReportStratifier(
@@ -269,7 +269,7 @@ MeasureReport _createMeasureReport(
                 ],
               ),
             ]);
-            print('setting new measure report group: $newGroup');
+            // print('setting new measure report group: $newGroup');
 
             /// Update MeasureReportGroups, removing the last value if possible
             /// (which is what was just modified)
@@ -287,11 +287,11 @@ MeasureReport _createMeasureReport(
         }
       }
     }
-    for (var group in measureReport.group ?? <MeasureReportGroup>[]) {
-      print(group.toJson());
-    }
+    // for (var group in measureReport.group ?? <MeasureReportGroup>[]) {
+    //   print(group.toJson());
+    // }
 
-    print('...Finished Creating MeasureReport');
+    // print('...Finished Creating MeasureReport');
   }
   return measureReport.newIdIfNoId() as MeasureReport;
 }

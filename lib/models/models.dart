@@ -1,4 +1,3 @@
-export 'assets.dart';
 export 'operation_outcomes.dart';
 export 'scopes.dart';
 export 'success_or_error.dart';

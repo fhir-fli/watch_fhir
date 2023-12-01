@@ -2,24 +2,24 @@
 
 // Package imports:
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yaml/yaml.dart';
 
-import '../watch_fhir.dart';
-
 part 'watch_fhir_assets.g.dart';
 
 final ProviderContainer providerContainer = ProviderContainer();
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Assets extends _$Assets {
   @override
   WatchFhirAssets build() => WatchFhirAssets();
 
   Future<void> init() async {
+    final String assetsYaml = File('assets/assets.yaml').readAsStringSync();
     final YamlMap yaml = loadYaml(assetsYaml);
     final Map<String, dynamic> json = jsonDecode(jsonEncode(yaml));
     state = WatchFhirAssets.fromJson(json);
@@ -28,6 +28,9 @@ class Assets extends _$Assets {
 
 class WatchFhirAssets {
   WatchFhirAssets({
+    this.atSign = false,
+    this.listener = true,
+    this.resourceTypes = const <String>[],
     this.communicationsOnly = false,
     this.allowEmails = true,
     this.allowTexts = false,
@@ -35,30 +38,38 @@ class WatchFhirAssets {
     this.emailSubject,
     this.organizationId,
     this.cuestionarioUrl,
-    this.fhirUrl = '',
     this.twilioAssets,
     this.serviceAccountCredentials,
   });
 
   WatchFhirAssets.fromJson(
     Map<String, dynamic> json,
-  )   : communicationsOnly = json['communicationsOnly'],
-        allowEmails = json['allowEmails'],
-        allowTexts = json['allowTexts'],
+  )   : atSign = json['atSign'] ?? false,
+        listener = json['listener'] ?? true,
+        resourceTypes = json['resourceTypes'] is! List
+            ? <String>[]
+            : List<String>.from(json['resourceTypes']),
+        communicationsOnly = json['communicationsOnly'] ?? false,
+        allowEmails = json['allowEmails'] ?? true,
+        allowTexts = json['allowTexts'] ?? false,
         serviceAccountEmail = json['serviceAccountEmail']?.toString(),
         emailSubject = json['emailSubject']?.toString(),
         organizationId = json['organizationId']?.toString(),
         cuestionarioUrl = json['cuestionarioUrl']?.toString(),
-        fhirUrl = json['fhirUrl'].toString(),
-        twilioAssets = TwilioAssets.fromJson(
-          json['twilioAssets'],
-        ),
+        twilioAssets = json['twilioAssets'] == null
+            ? null
+            : TwilioAssets.fromJson(
+                json['twilioAssets'],
+              ),
         serviceAccountCredentials = json['serviceAccountCredentials'] is! Map
             ? null
             : ServiceAccountCredentials.fromJson(
                 json['serviceAccountCredentials'],
               );
 
+  bool atSign;
+  bool listener;
+  List<String> resourceTypes;
   bool communicationsOnly;
   bool allowEmails;
   bool allowTexts;
@@ -66,7 +77,6 @@ class WatchFhirAssets {
   String? emailSubject;
   String? organizationId;
   String? cuestionarioUrl;
-  String fhirUrl;
   TwilioAssets? twilioAssets;
   ServiceAccountCredentials? serviceAccountCredentials;
 }

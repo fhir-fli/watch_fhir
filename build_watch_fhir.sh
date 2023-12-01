@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # options dev, stage, prod
-env="dev"
+env="stage"
 location="us-central1"
-repository="cuestionario-sandbox"
-projectId="mayjuun-questions-and-recipes"
-projectName="watch-fhir-meld"
+repository="containers"
+projectId="zanenet-njinck"
+projectName="watch-fhir-$env"
 appDir="."
 
 fullVersion=$(yq eval '.version' $appDir"/pubspec.yaml")
@@ -23,19 +23,19 @@ cd $appDir &&
 
 # sed -i -e "s/\"env\": \".*\",/\"env\": \"$env\",/g" $galleriaCredentials &&
 
-# # Build the docker container
+# Build the docker container
 docker build -t $projectName .
 
-# registryLocation="$location-docker.pkg.dev/$projectId/$repository/$projectName"
+registryLocation="$location-docker.pkg.dev/$projectId/$repository/$projectName"
 
-# # tag the docker container
-# docker tag $projectName $registryLocation
+# tag the docker container
+docker tag $projectName $registryLocation
 
-# # push the tagged image into the artifact registry
-# docker push $registryLocation
+# push the tagged image into the artifact registry
+docker push $registryLocation
 
-# # return back to root directory
-# cd ..
+# return back to root directory
+cd ..
 
-# # deploy on google cloud
-# gcloud run deploy $projectName --image $registryLocation
+# deploy on google cloud
+gcloud run deploy $projectName --image $registryLocation

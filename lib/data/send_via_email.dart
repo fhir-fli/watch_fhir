@@ -18,7 +18,11 @@ Future<Response> sendViaEmail(String email, String text) async {
       String getBase64Email(String source) =>
           base64UrlEncode(utf8.encode(source));
 
-      final clientCredentials = emailAccountCredentials;
+      final clientCredentials = serviceAccountCredentials(true);
+
+      if (clientCredentials == null) {
+        throw ArgumentError('No service account credentials');
+      }
 
       final authClient = await clientViaServiceAccount(
           clientCredentials, ['https://www.googleapis.com/auth/gmail.send']);

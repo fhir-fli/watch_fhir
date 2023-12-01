@@ -3,13 +3,13 @@ import 'package:fhir_at_rest/r4.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
 import 'package:shelf/shelf.dart';
 
-import '../../../watch_fhir.dart';
+import '../../../../watch_fhir.dart';
 
-Future<Response> postTask(Task task) async {
+Future<Response> taskCommunication(Task task, List<String> path) async {
   final AccessCredentials credentials = await getCredentials();
   final WatchFhirAssets watchFhirAssets =
       providerContainer.read(assetsProvider);
-  final Uri fhirUrl = Uri.parse(watchFhirAssets.fhirUrl);
+  final Uri fhirUrl = fullGcpUrl(path);
 
   final pastCommunicationRequest = FhirRequest.search(
     /// base fhir url

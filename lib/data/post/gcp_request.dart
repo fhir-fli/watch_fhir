@@ -9,48 +9,74 @@ Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
   /// For logging in Cloud Run
   print('postRequest -- path: $path');
 
-  final dynamic resourceType = Resource.resourceTypeFromString(path[0]);
+  /// The first entry in path will look something like the following:
+  /// projects/my-project/locations/us-central1/datasets/my-dataset/fhirStores/my-fhirstore/fhir/Task/abcdefg
+  /// First we split it to get the resourceType
+  final List<String>? splitPath =
+      path.length != 2 ? null : path.last.split('/');
 
-  if (resourceType == null) {
-    return Response.ok('"${path[0]}" is not a supported resourceType.');
+  final String? fhirId = splitPath?.removeLast();
+
+  /// Next to last item in teh list should be a resourceType
+  final String? resourceTypeString = splitPath?.removeLast();
+
+  /// Convert the resourceTypeString to a R4ResourceType
+  final R4ResourceType? resourceType = resourceTypeString == null
+      ? null
+      : Resource.resourceTypeFromString(resourceTypeString);
+
+  /// We cheeck that it is a resourceType, and if not we return an error
+  if (resourceType == null || fhirId == null || resourceTypeString == null) {
+    return Response.ok('The resourceType passed is not a supported.');
   } else {
     /// Allows us to easily change from full services to communications only. If,
     /// for instance in Meld, we're not storing ANY resources except communications
     /// and communicationRequests, this is the option we select
     if (providerContainer.read(assetsProvider).communicationsOnly) {
-      switch (path[0]) {
+      switch (resourceTypeString) {
         case 'CommunicationRequest':
           {
-            final Resource resource = await gcpResource(path);
+            final Resource resource =
+                await gcpResource(splitPath!, resourceType, fhirId);
             return resource is CommunicationRequest
-                ? postCommunicationRequest(resource)
-                : incorrectType(path[0], path[1], resource);
+                ? postCommunicationRequest(resource, splitPath)
+                : incorrectType(resourceTypeString, fhirId, resource);
           }
         default:
-          return Response.ok('The resource posted of type ${path[0]} '
+          return Response.ok('The resource posted of type $resourceTypeString '
               'is not currently supported.');
       }
     } else {
-      final Resource resource = await gcpResource(path);
+      if (!providerContainer
+          .read(assetsProvider)
+          .resourceTypes
+          .contains(resourceTypeString)) {
+        return Response.ok('The resource posted of type $resourceTypeString '
+            'is not currently supported.');
+      } else {
+        final Resource resource =
+            await gcpResource(splitPath!, resourceType, fhirId);
 
-      /// Otherwise, depending on the type of resource that was posted, we
-      /// respond differently
-      switch (path[0]) {
-        case 'ServiceRequest':
-          return resource is ServiceRequest
-              ? postServiceRequest(resource)
-              : incorrectType(path[0], path[1], resource);
-        case 'Task':
-          return resource is Task
-              ? postTask(resource)
-              : incorrectType(path[0], path[1], resource);
-        case 'CommunicationRequest':
-          return resource is CommunicationRequest
-              ? postCommunicationRequest(resource)
-              : incorrectType(path[0], path[1], resource);
-        default:
-          return Response.ok('The resource posted of type ${path[0]} '
-              'is not currently supported.');
+        /// Otherwise, depending on the type of resource that was posted, we
+        /// respond differently
+        switch (resourceTypeString) {
+          case 'ServiceRequest':
+            return resource is ServiceRequest
+                ? postServiceRequest(resource, splitPath)
+                : incorrectType(resourceTypeString, fhirId, resource);
+          case 'Task':
+            return resource is Task
+                ? postTask(resource, splitPath)
+                : incorrectType(resourceTypeString, fhirId, resource);
+          case 'CommunicationRequest':
+            return resource is CommunicationRequest
+                ? postCommunicationRequest(resource, splitPath)
+                : incorrectType(resourceTypeString, fhirId, resource);
+          default:
+            return Response.ok(
+                'The resource posted of type $resourceTypeString '
+                'is not currently supported.');
+        }
       }
     }
   }
@@ -61,19 +87,22 @@ Future<Response> incorrectType(
     Response.ok(
         'The was a problem retrieving $type/$id. Here\'s what we know: ${prettyJson(resource.toJson())}');
 
-Future<Resource> gcpResource(List<String> path) async {
-  final credentials = await getCredentials(true);
+Future<Resource> gcpResource(
+    List<String> splitPath, R4ResourceType resourceType, String fhirId) async {
+  final credentials =
+      await getCredentials(providerContainer.read(assetsProvider).allowEmails);
 
   /// Create the search request
   final resourceRequest = FhirRequest.read(
     /// base fhir url
-    base: Uri.parse(providerContainer.read(assetsProvider).fhirUrl),
+
+    base: fullGcpUrl(splitPath),
 
     /// resource type
-    type: Resource.resourceTypeFromString(path[0])!,
+    type: resourceType,
 
     /// ID from URL request
-    fhirId: path[1],
+    fhirId: fhirId,
   );
 
   /// get the response

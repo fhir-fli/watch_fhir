@@ -39,6 +39,9 @@ FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/server /app/bin/
 
+# Include files in the /assets directory to enable static asset handling
+COPY --from=build /app/assets/ /assets
+
 # Start server.
 EXPOSE 8080
 # ENTRYPOINT ["/app/bin/server"]

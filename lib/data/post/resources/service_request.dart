@@ -5,7 +5,8 @@ import 'package:shelf/shelf.dart';
 
 import '../../../watch_fhir.dart';
 
-Future<Response> postServiceRequest(ServiceRequest serviceRequest) async {
+Future<Response> postServiceRequest(
+    ServiceRequest serviceRequest, List<String> path) async {
   final AccessCredentials credentials = await getCredentials();
   String? planDefinitionUri;
 
@@ -28,7 +29,7 @@ Future<Response> postServiceRequest(ServiceRequest serviceRequest) async {
     }
   }
 
-  final Uri fhirUrl = Uri.parse(providerContainer.read(assetsProvider).fhirUrl);
+  final Uri fhirUrl = fullGcpUrl(path);
 
   /// if instantiates Uri exists and is not empty, and the first entry is a PlanDefinition
   if (planDefinitionUri != null) {

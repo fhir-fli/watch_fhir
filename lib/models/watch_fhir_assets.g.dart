@@ -6,12 +6,11 @@ part of 'watch_fhir_assets.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$assetsHash() => r'2a68cb77af71334cb3e0a75d37bca1a561e1609b';
+String _$assetsHash() => r'7a8634ca785978064048e5a68e9866543ecc4e46';
 
 /// See also [Assets].
 @ProviderFor(Assets)
-final assetsProvider =
-    AutoDisposeNotifierProvider<Assets, WatchFhirAssets>.internal(
+final assetsProvider = NotifierProvider<Assets, WatchFhirAssets>.internal(
   Assets.new,
   name: r'assetsProvider',
   debugGetCreateSourceHash:
@@ -20,6 +19,6 @@ final assetsProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Assets = AutoDisposeNotifier<WatchFhirAssets>;
+typedef _$Assets = Notifier<WatchFhirAssets>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

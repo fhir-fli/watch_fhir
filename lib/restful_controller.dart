@@ -69,7 +69,7 @@ class RestfulController {
       return Response.ok('Page not found');
     });
 
-    return router;
+    return router.call;
   }
 }
 
@@ -96,7 +96,7 @@ List<String> pathFromPayload(String requestString, String fhirVersion) {
                 r5.resourceTypeFromStringMap.keys.contains(shouldBeAType)) ||
             (fhirVersion == 'stu3' &&
                 stu3.resourceTypeFromStringMap.keys.contains(shouldBeAType))) {
-          return [shouldBeAType, dataList.last];
+          return [shouldBeAType, data];
         }
       }
     }

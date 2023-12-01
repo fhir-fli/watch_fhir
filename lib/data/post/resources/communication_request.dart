@@ -7,6 +7,7 @@ import '../../../watch_fhir.dart';
 
 Future<Response> postCommunicationRequest(
   CommunicationRequest communicationRequest,
+  List<String> path,
 ) async {
   /// Get Email Address - if available
   String? emailAddress = _emailAddress(communicationRequest.medium);
@@ -91,7 +92,7 @@ Future<Response> postCommunicationRequest(
   /// Create the Request for a new resource
   final serverCommunicationRequest = FhirRequest.create(
     /// base fhir url
-    base: Uri.parse(providerContainer.read(assetsProvider).fhirUrl),
+    base: fullGcpUrl(path),
 
     /// resource
     resource: communication,
