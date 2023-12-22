@@ -4,6 +4,7 @@ import 'package:shelf/shelf.dart';
 import '../../../../watch_fhir.dart';
 
 Future<Response> postTask(Task task, List<String> path) async {
+  print('POST Task: ${task.status} ${task.fhirId}');
   if (task.status == FhirCode('on-hold')) {
     final int? outputIndex = task.output?.indexWhere((element) =>
         element.type.coding
