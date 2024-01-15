@@ -84,8 +84,12 @@ List<String> pathFromPayload(String requestString, String fhirVersion) {
     final payloadData = jsonDecode(requestString)?['message']?['data'];
 
     if (payloadData != null) {
-      final data = utf8.fuse(base64).decode(payloadData);
-      final dataList = data.split('/');
+      final String data = utf8.fuse(base64).decode(payloadData);
+      final Map<String, dynamic> dataMap = jsonDecode(data);
+      print('dataMap: $dataMap');
+      final String resourceFullPath = dataMap['resource_full_path'];
+      final List<String> dataList = resourceFullPath.split('/');
+      print('dataList: $dataList');
       if (dataList.length > 1) {
         final shouldBeAType = dataList[dataList.length - 2];
         if ((fhirVersion == 'dstu2' &&
@@ -96,7 +100,7 @@ List<String> pathFromPayload(String requestString, String fhirVersion) {
                 r5.resourceTypeFromStringMap.keys.contains(shouldBeAType)) ||
             (fhirVersion == 'stu3' &&
                 stu3.resourceTypeFromStringMap.keys.contains(shouldBeAType))) {
-          return [shouldBeAType, data];
+          return [shouldBeAType, resourceFullPath];
         }
       }
     }

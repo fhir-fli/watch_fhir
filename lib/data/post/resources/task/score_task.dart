@@ -5,6 +5,7 @@ import 'package:shelf/shelf.dart';
 import 'package:watch_fhir/watch_fhir.dart';
 
 Future<Response> scoreTask(Task task, List<String> path) async {
+  print('Score Task: ${task.fhirId}');
   List<String> paths = [];
 
   /// Look through each input in the Task to see if it's a Resource
@@ -162,9 +163,9 @@ Future<Response> scoreTask(Task task, List<String> path) async {
                   .length !=
               2;
 
-      return Response.ok(countSuccess
+      return printResponseFirst(countSuccess
           ? 'Successful Update'
-          : 'Something Went Wrong with the Update');
+          : 'Something Went Wrong with the Update\n${finalResult.toJson()}');
     }
   }
 }

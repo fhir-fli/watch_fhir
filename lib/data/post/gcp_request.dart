@@ -27,7 +27,7 @@ Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
 
   /// We cheeck that it is a resourceType, and if not we return an error
   if (resourceType == null || fhirId == null || resourceTypeString == null) {
-    return Response.ok('The resourceType passed is not a supported.');
+    return printResponseFirst('The resourceType passed is not a supported.');
   } else {
     /// Allows us to easily change from full services to communications only. If,
     /// for instance in Meld, we're not storing ANY resources except communications
@@ -43,7 +43,8 @@ Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
                 : incorrectType(resourceTypeString, fhirId, resource);
           }
         default:
-          return Response.ok('The resource posted of type $resourceTypeString '
+          return printResponseFirst(
+              'The resource posted of type $resourceTypeString '
               'is not currently supported.');
       }
     } else {
@@ -51,7 +52,8 @@ Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
           .read(assetsProvider)
           .resourceTypes
           .contains(resourceTypeString)) {
-        return Response.ok('The resource posted of type $resourceTypeString '
+        return printResponseFirst(
+            'The resource posted of type $resourceTypeString '
             'is not currently supported.');
       } else {
         final Resource resource =
@@ -73,7 +75,7 @@ Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
                 ? postCommunicationRequest(resource, splitPath)
                 : incorrectType(resourceTypeString, fhirId, resource);
           default:
-            return Response.ok(
+            return printResponseFirst(
                 'The resource posted of type $resourceTypeString '
                 'is not currently supported.');
         }
@@ -84,13 +86,15 @@ Future<Response> postGcpRequest(List<String> path, String fhirVersion) async {
 
 Future<Response> incorrectType(
         String type, String? id, Resource resource) async =>
-    Response.ok(
-        'The was a problem retrieving $type/$id. Here\'s what we know: ${prettyJson(resource.toJson())}');
+    printResponseFirst('The was a problem retrieving $type/$id. '
+        'Here\'s what we know: ${prettyJson(resource.toJson())}');
 
 Future<Resource> gcpResource(
     List<String> splitPath, R4ResourceType resourceType, String fhirId) async {
   final credentials =
       await getCredentials(providerContainer.read(assetsProvider).allowEmails);
+
+  print(fullGcpUrl(splitPath));
 
   /// Create the search request
   final resourceRequest = FhirRequest.read(
