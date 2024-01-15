@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # options dev, stage, prod
-env="stage"
+env="prod"
 location="us-central1"
 repository="containers"
 projectId="zanenet-njinck"
@@ -17,11 +17,7 @@ gcloud config set project $projectId
 # only needed the first time
 # gcloud auth login
 
-# galleriaCredentials="lib/galleria_credentials.dart"
-
 cd $appDir && 
-
-# sed -i -e "s/\"env\": \".*\",/\"env\": \"$env\",/g" $galleriaCredentials &&
 
 # Build the docker container
 docker build -t $projectName .
