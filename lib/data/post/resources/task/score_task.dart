@@ -5,6 +5,8 @@ import 'package:shelf/shelf.dart';
 import 'package:watch_fhir/watch_fhir.dart';
 
 Future<Response> scoreTask(Task task, List<String> path) async {
+  print(
+      'task length: input: ${task.input?.length} output:${task.output?.length}');
   print('Score Task: ${task.fhirId}');
   List<String> paths = [];
 
@@ -73,6 +75,8 @@ Future<Response> scoreTask(Task task, List<String> path) async {
     final transactionResponse = await transactionRequest.request(
         headers: {'Authorization': 'Bearer ${credentials.accessToken.data}'});
 
+    print(transactionResponse.path);
+
     /// If the response is not a bundle, we can't score it
     if (transactionResponse is! Bundle) {
       return printResponseFirst(
@@ -111,6 +115,11 @@ Future<Response> scoreTask(Task task, List<String> path) async {
           oldMeasureReport == null || oldMeasureReport is! MeasureReport
               ? null
               : oldMeasureReport.fhirId;
+
+      print((transactionResponse.entry![measureIndex].resource! as Measure)
+          .toJson());
+
+      print('responses: ${responses.length}');
 
       /// Create the MeasureReport
       final measureReport = createMeasureReportFromResponses(

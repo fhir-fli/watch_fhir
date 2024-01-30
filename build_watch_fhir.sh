@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # options dev, stage, prod
-env="prod"
+env="stage"
 location="us-central1"
 repository="containers"
 projectId="zanenet-njinck"

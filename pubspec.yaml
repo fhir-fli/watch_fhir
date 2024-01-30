@@ -4,25 +4,25 @@ version: 0.0.1
 # repository: https://github.com/my_org/my_repo
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  at_client: ^3.0.67
+  at_client: ^3.0.75
   at_fhir: ^0.11.0-dev3
   # at_fhir:
   #   path: ../at_fhir
-  at_onboarding_cli: ^1.4.0
+  at_onboarding_cli: ^1.4.3
   fhir: ^0.11.4
   fhir_at_rest: ^0.11.4
-  fhir_path: ^0.11.2
+  fhir_path: ^0.11.3
   form_validator: ^2.1.1
   freezed_annotation: ^2.4.1
-  googleapis: ^11.4.0
+  googleapis: ^12.0.0
   googleapis_auth: ^1.4.1
-  http: ^1.1.0
+  http: ^1.2.0
   json_annotation: ^4.8.1
-  riverpod: ^2.4.5
-  riverpod_annotation: ^2.3.0
+  riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
   shelf: ^1.4.1
   shelf_router: ^1.1.4
   version: ^3.0.2
@@ -41,4 +41,3 @@ dev_dependencies:
 
 dependency_overrides:
   uuid: ^4.1.0
-  http: ^1.1.0
