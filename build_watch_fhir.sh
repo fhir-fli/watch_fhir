@@ -4,7 +4,7 @@
 env="stage"
 location="us-central1"
 repository="containers"
-projectId="zanenet-njinck"
+projectId="zanenet-ctinck"
 projectName="watch-fhir-$env"
 appDir="."
 

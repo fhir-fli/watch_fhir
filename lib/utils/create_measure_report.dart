@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:fhir/r4.dart';
 import 'package:fhir_path/fhir_path.dart';
 
-final _socialComplexity = 'njinck-social-complexity';
+final _socialComplexity = 'ctinck-social-complexity';
 
 MeasureReport createMeasureReportFromBundle({
   required Measure measure,
