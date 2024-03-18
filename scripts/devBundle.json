@@ -1,0 +1,335 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry": [
+        {
+            "resource": {
+                "authoredOn": "2024-02-13T15:54:35.761000+00:00",
+                "basedOn": [
+                    {
+                        "reference": "ServiceRequest/a219ce5a-f23e-42df-a00b-c509aee345cc"
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "code": "completed-nat-assessment",
+                            "display": "Completed NAT Assessment"
+                        }
+                    ],
+                    "text": "Completed NAT Assessment"
+                },
+                "extension": [
+                    {
+                        "url": "https://loinc.org/90897-0/",
+                        "valueInteger": 100
+                    }
+                ],
+                "for": {
+                    "reference": "Patient/177ff4f6-ac0c-4aca-be5e-773e7420a808"
+                },
+                "id": "5c1b8f3f-1b93-4675-ac04-acd241602127",
+                "identifier": [
+                    {
+                        "system": "https://dev-natweb.mynjinck.com/api/fhirproxy/CodeSystem/?code=task-number&name=njinck-task-number",
+                        "type": {
+                            "text": "NJ inCK Task Number"
+                        },
+                        "value": "XNZFJY"
+                    }
+                ],
+                "input": [
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/2a468364-d8b1-4982-8eac-d1a4503c8311"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/b2046600-e808-434a-9442-83717a088cbb"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/aa90ff2a-3db3-42e8-ab39-374df411d488"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/64ce4e7c-65df-426e-9289-d96023acc315"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/77d1555a-f5b4-4caf-b3ca-69303b403336"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Questionnaire/0d6ae936-0358-4462-832f-7a46510a6dd8"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "Measure/2f023118-ffb2-469f-bc8d-47fdbc56f470"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/895847ed-4d51-4d8f-8508-88937861d60b"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/7ab13928-6289-4ad0-8a97-2d2289f4a76e"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/f750b72a-9b2d-4596-bfa0-f3289f0d41fb"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/74000880-c01d-4987-b42c-e457e347817c"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/d76c6766-8627-4b51-81cb-44d202691763"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/78a470b9-795b-4d49-9c53-6638c39b8ffe"
+                    },
+                    {
+                        "type": {
+                            "text": "NATQuestionnaire"
+                        },
+                        "valueUri": "ValueSet/35696d29-dacd-4dee-8863-f5b895287a95"
+                    }
+                ],
+                "instantiatesCanonical": "PlanDefinition/7552848b-ab91-4b83-8162-b19811e5d0b7",
+                "intent": "order",
+                "meta": {
+                    "lastUpdated": "2024-02-13T15:56:39.212621+00:00",
+                    "tag": [
+                        {
+                            "code": "ph-created-by",
+                            "display": "paulo.ubirajara@nicheaim.com",
+                            "system": "https://terminology.patientholistics.app/fhir/CodeSystem/ph-meta-tags"
+                        },
+                        {
+                            "code": "ph-created-on",
+                            "display": "2024-02-13T15:54:35.761Z",
+                            "system": "https://terminology.patientholistics.app/fhir/CodeSystem/ph-meta-tags"
+                        }
+                    ],
+                    "versionId": "MTcwNzgzOTc5OTIxMjYyMTAwMA"
+                },
+                "output": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "90897-0",
+                                    "display": "Percent of task completed",
+                                    "system": "http://loinc.org"
+                                }
+                            ],
+                            "text": "Percent of task completed"
+                        },
+                        "valueInteger": 100
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/01660514-756c-442d-8808-a6f734f2108c",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/a01ac71b-db11-411b-94bb-d2661494db6d",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/fc66425b-d26e-416b-be97-50d03ef05410",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/bf078fcf-4094-4113-91dc-b98186aa6330",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/39f439f0-cd80-4159-85ef-9ed409556f00",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/a0f668a4-01ab-4a21-a5fe-c50fe8091adf",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "collect-information",
+                                    "display": "Collect Information",
+                                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type"
+                                }
+                            ]
+                        },
+                        "valueReference": {
+                            "reference": "QuestionnaireResponse/77b482dd-45d3-412d-87ad-e5c664d44401",
+                            "type": "QuestionnaireResponse"
+                        }
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "code": "measureReport",
+                                    "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/temp"
+                                }
+                            ]
+                        },
+                        "valueUri": "MeasureReport/adda3e2f-270b-4e07-b2cf-1acc14dd7962"
+                    }
+                ],
+                "owner": {
+                    "reference": "RelatedPerson/bfbe60f5-8ebd-4178-a027-80512c5c8b36",
+                    "type": "Guarantor"
+                },
+                "priority": "routine",
+                "requester": {
+                    "reference": "Organization/fd7b5daa-3a00-4bb5-bef2-c1d5ed375c6e"
+                },
+                "resourceType": "Task",
+                "status": "on-hold"
+            },
+            "request": {
+                "method": "PUT",
+                "url": "Task/5c1b8f3f-1b93-4675-ac04-acd241602127"
+            }
+        }
+    ]
+}

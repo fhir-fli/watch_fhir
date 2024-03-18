@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:watch_fhir/watch_fhir.dart';
 import 'package:yaml/yaml.dart';
 
 part 'watch_fhir_assets.g.dart';
@@ -31,6 +32,8 @@ class WatchFhirAssets {
     this.atSign = false,
     this.listener = true,
     this.resourceTypes = const <String>[],
+    this.proxy,
+    this.oidcCredentials,
     this.communicationsOnly = false,
     this.allowEmails = true,
     this.allowTexts = false,
@@ -49,6 +52,13 @@ class WatchFhirAssets {
         resourceTypes = json['resourceTypes'] is! List
             ? <String>[]
             : List<String>.from(json['resourceTypes']),
+        proxy = json['proxy'] ?? false,
+        oidcCredentials = json['oidcCredentials'] is! Map
+            ? null
+            : <String, OidcCredentials>{
+                for (final entry in json['oidcCredentials'].entries)
+                  entry.key: OidcCredentials.fromJson(entry.value),
+              },
         communicationsOnly = json['communicationsOnly'] ?? false,
         allowEmails = json['allowEmails'] ?? true,
         allowTexts = json['allowTexts'] ?? false,
@@ -70,6 +80,8 @@ class WatchFhirAssets {
   bool atSign;
   bool listener;
   List<String> resourceTypes;
+  bool? proxy;
+  Map<String, OidcCredentials>? oidcCredentials;
   bool communicationsOnly;
   bool allowEmails;
   bool allowTexts;

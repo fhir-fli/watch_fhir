@@ -12,7 +12,7 @@ part of 'success_or_error.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$FhirliteSuccess {
@@ -117,7 +117,7 @@ class _$SuccessfulImpl implements Successful {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$SuccessfulImpl);
   }
@@ -253,7 +253,7 @@ class _$SuccessStringImpl implements SuccessString {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessStringImpl &&
@@ -402,7 +402,7 @@ class _$SuccessBoolImpl implements SuccessBool {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessBoolImpl &&
@@ -553,7 +553,7 @@ class _$SuccessNotificationResultImpl implements SuccessNotificationResult {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessNotificationResultImpl &&
@@ -772,7 +772,7 @@ class _$FailureMessageErrorImpl implements FailureMessageError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FailureMessageErrorImpl &&
@@ -919,7 +919,7 @@ class _$ExceptionErrorImpl implements ExceptionError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExceptionErrorImpl &&
@@ -1074,7 +1074,7 @@ class _$AtErrorImpl implements AtError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AtErrorImpl &&

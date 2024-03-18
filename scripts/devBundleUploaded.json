@@ -1,0 +1,14 @@
+{
+  "entry": [
+    {
+      "response": {
+        "etag": "W/\"MTcxMDc5NzA5OTk0MjgwNjAwMA\"",
+        "lastModified": "2024-03-18T21:24:59.942806+00:00",
+        "location": "https://healthcare.googleapis.com/v1/projects/zanenet-njinck/locations/us-east4/datasets/dev-zanenet-njinck/fhirStores/dev-zanenet-njinck-datastore/fhir/Task/5c1b8f3f-1b93-4675-ac04-acd241602127/_history/MTcxMDc5NzA5OTk0MjgwNjAwMA",
+        "status": "200 OK"
+      }
+    }
+  ],
+  "resourceType": "Bundle",
+  "type": "transaction-response"
+}

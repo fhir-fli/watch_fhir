@@ -1,6 +1,7 @@
 import 'package:fhir/r4.dart';
 import 'package:fhir_at_rest/r4.dart';
 import 'package:googleapis_auth/googleapis_auth.dart';
+import 'package:oauth2/oauth2.dart';
 import 'package:shelf/shelf.dart';
 import 'package:watch_fhir/watch_fhir.dart';
 
@@ -41,8 +42,6 @@ Future<Response> scoreTask(Task task, List<String> path) async {
   if (task.for_?.reference == null) {
     return Response.ok('No patient found');
   } else {
-    final Uri fhirUrl = fullGcpUrl(path);
-
     /// Add the patient to the list of resources to retrieve
     paths.add(task.for_!.reference!);
 
@@ -59,8 +58,16 @@ Future<Response> scoreTask(Task task, List<String> path) async {
       entry: bundleEntries.map((e) => e!).toList(),
     );
 
+    final Uri fhirUrl = (providerContainer.read(assetsProvider).proxy ?? false)
+        ? Uri.parse(providerContainer
+                .read(assetsProvider)
+                .oidcCredentials?[path.join('/')]
+                ?.proxyEndpoint ??
+            fullGcpUrl(path).toString())
+        : fullGcpUrl(path);
+
     /// Create the transaction request
-    final transactionRequest = FhirRequest.transaction(
+    FhirRequest transactionRequest = FhirRequest.transaction(
       /// base fhir url
       base: fhirUrl,
 
@@ -68,12 +75,24 @@ Future<Response> scoreTask(Task task, List<String> path) async {
       bundle: newTransactionBundle,
     );
 
-    /// Get the credentials to make requests
-    final AccessCredentials credentials = await getCredentials();
+    dynamic transactionResponse;
+    AccessCredentials? credentials;
+    Client? client;
 
-    /// Send the transaction request
-    final transactionResponse = await transactionRequest.request(
-        headers: {'Authorization': 'Bearer ${credentials.accessToken.data}'});
+    if (providerContainer.read(assetsProvider).proxy ?? false) {
+      client = await providerContainer
+          .read(clientOidcProvider.notifier)
+          .clientForRequest();
+      transactionRequest = transactionRequest.copyWith(client: client);
+      transactionResponse = await transactionRequest.request();
+    } else {
+      /// Get the credentials to make requests
+      credentials = await getCredentials();
+
+      /// Send the transaction request
+      transactionResponse = await transactionRequest.request(
+          headers: {'Authorization': 'Bearer ${credentials.accessToken.data}'});
+    }
 
     print(transactionResponse.path);
 
@@ -160,9 +179,17 @@ Future<Response> scoreTask(Task task, List<String> path) async {
         bundle: finalBundle,
       );
 
+      Resource? finalResult;
+
       /// Send the transaction request
-      final Resource finalResult = await transactionRequest.request(
-          headers: {'Authorization': 'Bearer ${credentials.accessToken.data}'});
+      if (providerContainer.read(assetsProvider).proxy ?? false) {
+        final clientRequest = transactionRequest.copyWith(client: client);
+        finalResult = await clientRequest.request();
+      } else {
+        finalResult = await transactionRequest.request(headers: {
+          'Authorization': 'Bearer ${credentials?.accessToken.data}'
+        });
+      }
 
       final countSuccess = finalResult is Bundle &&
           finalResult.entry

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # options dev, stage, prod
-env="prod"
+env="dev"
 location="us-central1"
 repository="containers"
-projectId="zanenet-ctinck"
+projectId="zanenet-njinck"
 projectName="watch-fhir-$env"
 appDir="."
 
